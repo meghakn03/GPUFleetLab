@@ -1,0 +1,14 @@
+{
+  "at": "2026-10-31T18:18:28.694600+00:00",
+  "success": true,
+  "checks": [
+    {
+      "check": "Team A borrowed GPU metric",
+      "value": 8
+    },
+    {
+      "check": "Grafana queries live Team A allocation",
+      "value": 16
+    }
+  ]
+}

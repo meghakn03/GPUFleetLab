@@ -1,0 +1,100 @@
+{{- range $i := until (int .Values.nodeCount) }}
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: gpu-worker-{{ printf "%02d" (add $i 1) }}
+  annotations:
+    kwok.x-k8s.io/node: fake
+  labels:
+    type: kwok
+    kubernetes.io/hostname: gpu-worker-{{ printf "%02d" (add $i 1) }}
+    gpu.fleet/model: A100
+spec:
+  taints:
+    - key: kwok.x-k8s.io/node
+      value: fake
+      effect: NoSchedule
+status:
+  allocatable:
+    cpu: "32"
+    memory: 128Gi
+    pods: "110"
+    nvidia.com/gpu: {{ $.Values.gpusPerNode | quote }}
+  capacity:
+    cpu: "32"
+    memory: 128Gi
+    pods: "110"
+    nvidia.com/gpu: {{ $.Values.gpusPerNode | quote }}
+  nodeInfo:
+    architecture: amd64
+    operatingSystem: linux
+    kubeletVersion: v1.32.0
+  conditions:
+    - type: Ready
+      status: "True"
+{{- end }}
+---
+apiVersion: kueue.x-k8s.io/v1beta1
+kind: ResourceFlavor
+metadata:
+  name: a100
+spec:
+  nodeLabels:
+    gpu.fleet/model: A100
+  tolerations:
+    - key: kwok.x-k8s.io/node
+      operator: Equal
+      value: fake
+      effect: NoSchedule
+{{- range $team := list "team-a" "team-b" }}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $team }}
+  labels:
+    fleet-team: {{ $team }}
+---
+apiVersion: kueue.x-k8s.io/v1beta1
+kind: ClusterQueue
+metadata:
+  name: {{ $team }}
+spec:
+  cohort: gpu-fleet
+  namespaceSelector:
+    matchLabels:
+      fleet-team: {{ $team }}
+  queueingStrategy: BestEffortFIFO
+  preemption:
+    reclaimWithinCohort: LowerPriority
+    withinClusterQueue: LowerPriority
+  resourceGroups:
+    - coveredResources: [nvidia.com/gpu]
+      flavors:
+        - name: a100
+          resources:
+            - name: nvidia.com/gpu
+              nominalQuota: {{ $.Values.nominalQuota }}
+              borrowingLimit: {{ $.Values.borrowingLimit }}
+---
+apiVersion: kueue.x-k8s.io/v1beta1
+kind: LocalQueue
+metadata:
+  name: gpu-queue
+  namespace: {{ $team }}
+spec:
+  clusterQueue: {{ $team }}
+{{- end }}
+---
+apiVersion: kueue.x-k8s.io/v1beta1
+kind: WorkloadPriorityClass
+metadata:
+  name: urgent
+value: 100
+---
+apiVersion: kueue.x-k8s.io/v1beta1
+kind: WorkloadPriorityClass
+metadata:
+  name: batch
+value: 20

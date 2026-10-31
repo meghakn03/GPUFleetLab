@@ -1,0 +1,4 @@
+nodeCount: 4
+gpusPerNode: 4
+nominalQuota: 8
+borrowingLimit: 8

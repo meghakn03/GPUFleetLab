@@ -1,0 +1,19 @@
+groups:
+  - name: fleet
+    rules:
+      - alert: FleetCapacityReduced
+        expr: fleet_gpu_capacity{job="gpu-fleet"} < 16
+        labels:
+          severity: warning
+        annotations:
+          summary: Simulated GPU capacity reduced
+      - alert: FleetJobsWaiting
+        expr: fleet_jobs{job="gpu-fleet",status="Queued"} > 0
+        for: 1m
+        annotations:
+          summary: GPU jobs waiting for admission
+      - alert: FleetAPIUnavailable
+        expr: up{job="gpu-fleet"} == 0
+        for: 30s
+        annotations:
+          summary: Fleet API is unavailable

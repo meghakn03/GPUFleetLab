@@ -1,0 +1,362 @@
+{
+  "at": "2026-10-31T18:17:05.104318+00:00",
+  "mode": "kubernetes",
+  "success": true,
+  "checks": [
+    {
+      "check": "Kubernetes inventory",
+      "detail": {
+        "nodes": 4,
+        "gpus": 16
+      }
+    },
+    {
+      "check": "Team A borrows 8 GPUs",
+      "detail": {
+        "teams": [
+          {
+            "id": "team-a",
+            "quota": 8,
+            "allocated": 16,
+            "borrowed": 8
+          },
+          {
+            "id": "team-b",
+            "quota": 8,
+            "allocated": 0,
+            "borrowed": 0
+          }
+        ],
+        "jobs": [
+          [
+            "verify-borrow-1",
+            "Running"
+          ],
+          [
+            "verify-borrow-0",
+            "Running"
+          ],
+          [
+            "verify-borrow-3",
+            "Running"
+          ],
+          [
+            "verify-borrow-2",
+            "Running"
+          ]
+        ]
+      }
+    },
+    {
+      "check": "Urgent Team B reclaims nominal share",
+      "detail": {
+        "teams": [
+          {
+            "id": "team-a",
+            "quota": 8,
+            "allocated": 8,
+            "borrowed": 0
+          },
+          {
+            "id": "team-b",
+            "quota": 8,
+            "allocated": 8,
+            "borrowed": 0
+          }
+        ],
+        "jobs": [
+          [
+            "verify-borrow-1",
+            "Running"
+          ],
+          [
+            "verify-borrow-0",
+            "Queued"
+          ],
+          [
+            "verify-borrow-3",
+            "Queued"
+          ],
+          [
+            "verify-borrow-2",
+            "Running"
+          ],
+          [
+            "verify-urgent",
+            "Running"
+          ]
+        ]
+      }
+    },
+    {
+      "check": "Kueue preemption event",
+      "detail": {
+        "observed": true
+      }
+    },
+    {
+      "check": "FleetJobsWaiting firing",
+      "detail": {
+        "active": true,
+        "alerts": [
+          {
+            "labels": {
+              "alertname": "FleetJobsWaiting",
+              "instance": "host.containers.internal:8017",
+              "job": "gpu-fleet",
+              "status": "Queued"
+            },
+            "value": "2e+00"
+          }
+        ]
+      }
+    },
+    {
+      "check": "Node fault reduces schedulable capacity",
+      "detail": {
+        "teams": [
+          {
+            "id": "team-a",
+            "quota": 8,
+            "allocated": 6,
+            "borrowed": 0
+          },
+          {
+            "id": "team-b",
+            "quota": 8,
+            "allocated": 6,
+            "borrowed": 0
+          }
+        ],
+        "jobs": [
+          [
+            "verify-borrow-1",
+            "Running"
+          ],
+          [
+            "verify-borrow-0",
+            "Queued"
+          ],
+          [
+            "verify-borrow-3",
+            "Queued"
+          ],
+          [
+            "verify-borrow-2",
+            "Running"
+          ],
+          [
+            "verify-urgent",
+            "Running"
+          ]
+        ]
+      }
+    },
+    {
+      "check": "FleetCapacityReduced firing",
+      "detail": {
+        "active": true,
+        "alerts": [
+          {
+            "labels": {
+              "alertname": "FleetCapacityReduced",
+              "instance": "host.containers.internal:8017",
+              "job": "gpu-fleet",
+              "severity": "warning"
+            },
+            "value": "1.2e+01"
+          }
+        ]
+      }
+    },
+    {
+      "check": "Node recovery restores 16 GPU allocation",
+      "detail": {
+        "teams": [
+          {
+            "id": "team-a",
+            "quota": 8,
+            "allocated": 8,
+            "borrowed": 0
+          },
+          {
+            "id": "team-b",
+            "quota": 8,
+            "allocated": 8,
+            "borrowed": 0
+          }
+        ],
+        "jobs": [
+          [
+            "verify-borrow-1",
+            "Running"
+          ],
+          [
+            "verify-borrow-0",
+            "Queued"
+          ],
+          [
+            "verify-borrow-3",
+            "Queued"
+          ],
+          [
+            "verify-borrow-2",
+            "Running"
+          ],
+          [
+            "verify-urgent",
+            "Running"
+          ]
+        ]
+      }
+    },
+    {
+      "check": "FleetCapacityReduced cleared",
+      "detail": {
+        "active": false,
+        "alerts": []
+      }
+    },
+    {
+      "check": "Borrowing resumes after urgent job cancellation",
+      "detail": {
+        "teams": [
+          {
+            "id": "team-a",
+            "quota": 8,
+            "allocated": 16,
+            "borrowed": 8
+          },
+          {
+            "id": "team-b",
+            "quota": 8,
+            "allocated": 0,
+            "borrowed": 0
+          }
+        ],
+        "jobs": [
+          [
+            "verify-borrow-1",
+            "Running"
+          ],
+          [
+            "verify-borrow-0",
+            "Running"
+          ],
+          [
+            "verify-borrow-3",
+            "Running"
+          ],
+          [
+            "verify-borrow-2",
+            "Running"
+          ]
+        ]
+      }
+    },
+    {
+      "check": "Allocations released",
+      "detail": {
+        "teams": [
+          {
+            "id": "team-a",
+            "quota": 8,
+            "allocated": 0,
+            "borrowed": 0
+          },
+          {
+            "id": "team-b",
+            "quota": 8,
+            "allocated": 0,
+            "borrowed": 0
+          }
+        ],
+        "jobs": []
+      }
+    },
+    {
+      "check": "KWOK job completion",
+      "detail": {
+        "teams": [
+          {
+            "id": "team-a",
+            "quota": 8,
+            "allocated": 0,
+            "borrowed": 0
+          },
+          {
+            "id": "team-b",
+            "quota": 8,
+            "allocated": 0,
+            "borrowed": 0
+          }
+        ],
+        "jobs": [
+          [
+            "verify-completion",
+            "Completed"
+          ]
+        ]
+      }
+    },
+    {
+      "check": "Unsupported H100 remains queued",
+      "detail": {
+        "teams": [
+          {
+            "id": "team-a",
+            "quota": 8,
+            "allocated": 0,
+            "borrowed": 0
+          },
+          {
+            "id": "team-b",
+            "quota": 8,
+            "allocated": 0,
+            "borrowed": 0
+          }
+        ],
+        "jobs": [
+          [
+            "verify-completion",
+            "Completed"
+          ],
+          [
+            "verify-unsupported-flavor",
+            "Queued"
+          ]
+        ]
+      }
+    },
+    {
+      "check": "Prometheus scrape healthy",
+      "detail": {
+        "targets": 1
+      }
+    },
+    {
+      "check": "Prometheus live capacity metric",
+      "detail": {
+        "capacity": 16
+      }
+    },
+    {
+      "check": "Grafana /api/health",
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "check": "Grafana /api/dashboards/uid/gpu-fleet",
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "check": "Grafana /api/datasources/proxy/uid/prometheus/api/v1/query",
+      "detail": {
+        "status": 200
+      }
+    }
+  ]
+}

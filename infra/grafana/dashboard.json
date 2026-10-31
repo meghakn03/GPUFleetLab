@@ -1,0 +1,145 @@
+{
+  "title": "GPU Fleet \u2014 SIMULATED allocations",
+  "uid": "gpu-fleet",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "5s",
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "GPU allocations \u00b7 simulated",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "fleet_gpu_allocated{job=\"gpu-fleet\"}",
+          "refId": "A",
+          "legendFormat": "{{team}}{{status}}"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Healthy GPU capacity",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "fleet_gpu_capacity{job=\"gpu-fleet\"}",
+          "refId": "A",
+          "legendFormat": "{{team}}{{status}}"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Borrowed GPUs",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "fleet_gpu_borrowed{job=\"gpu-fleet\"}",
+          "refId": "A",
+          "legendFormat": "{{team}}{{status}}"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Job states",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "fleet_jobs{job=\"gpu-fleet\"}",
+          "refId": "A",
+          "legendFormat": "{{team}}{{status}}"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Average admission wait (seconds)",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 16,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "fleet_queue_wait_seconds_sum{job=\"gpu-fleet\"} / clamp_min(fleet_queue_wait_seconds_count{job=\"gpu-fleet\"}, 1)",
+          "refId": "A",
+          "legendFormat": "{{team}}{{status}}"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Preemption events",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 16,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "fleet_preemptions_total{job=\"gpu-fleet\"}",
+          "refId": "A",
+          "legendFormat": "{{team}}{{status}}"
+        }
+      ]
+    }
+  ]
+}

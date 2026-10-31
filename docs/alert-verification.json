@@ -1,0 +1,14 @@
+{
+  "at": "2026-10-31T18:17:14.908922+00:00",
+  "success": true,
+  "checks": [
+    {
+      "check": "FleetAPIUnavailable",
+      "firing": true
+    },
+    {
+      "check": "FleetAPIUnavailable",
+      "firing": false
+    }
+  ]
+}

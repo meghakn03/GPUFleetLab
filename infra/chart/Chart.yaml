@@ -1,0 +1,4 @@
+apiVersion: v2
+name: gpu-fleet-lab
+version: 0.1.0
+description: Four KWOK GPU nodes, two Kueue queues and shared quota
