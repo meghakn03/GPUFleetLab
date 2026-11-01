@@ -1,4 +1,4 @@
-.PHONY: setup build run run-kubernetes dev test cluster-up cluster-down monitoring monitoring-down verify-live lab-up
+.PHONY: setup build run run-kubernetes dev test cluster-up cluster-down monitoring monitoring-down verify-live lab-up start
 setup:
 	python3 -m venv .venv
 	.venv/bin/pip install -r requirements-dev.txt
@@ -31,3 +31,6 @@ lab-up:
 	$(MAKE) cluster-up
 	$(MAKE) monitoring
 	$(MAKE) run-kubernetes
+
+start:
+	bash scripts/start.sh

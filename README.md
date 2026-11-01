@@ -4,6 +4,16 @@ A local GPU cluster operations lab with a React dashboard, FastAPI control plane
 
 **GPU allocation is measurable. GPU utilization, training throughput, memory consumption, and hardware performance require real GPUs.** All hardware/model/memory labels here describe simulated inventory.
 
+## Start the entire app
+
+With Python, Node/npm, Podman, kind, kubectl, Helm, and curl installed, run:
+
+```sh
+make start
+```
+
+This installs missing app dependencies, builds the dashboard, initializes/starts the Podman VM on macOS if needed, deploys or reconciles the Kubernetes lab, starts monitoring, and waits for all services to respond. It reuses a running Kubernetes-mode API; otherwise it runs the API until Ctrl-C. Logs are in `.run/api.log`. An existing simulator on port 8017 must be stopped first. Containers and cluster stay running when the API is stopped. To use an already-downloaded official VM image, set `PODMAN_MACHINE_IMAGE=/absolute/path/image.raw.zst`.
+
 ## Run locally
 
 Prerequisites: Python 3.9+ and Node.js 22.12+ with npm.
