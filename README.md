@@ -1,3 +1,5 @@
+**Tech stack:** Python, FastAPI, React, Vite, Kubernetes, Kueue, KWOK, kind, Podman, Helm, Prometheus, Grafana
+
 # GPU Fleet Manager
 
 A local GPU cluster operations lab with a React dashboard, FastAPI control plane, deterministic scheduler, Kueue/KWOK integration, and Prometheus/Grafana configuration. Four simulated A100 nodes expose 16 GPUs shared by two teams.
